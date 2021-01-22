@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <my-header></my-header>
     <tab-bar-main></tab-bar-main>
     <router-view></router-view>
@@ -21,4 +21,7 @@ export default {
 
 <style lang="scss">
 @import "~assets/css/base.css";
+#app {
+  height: 100vh;
+}
 </style>

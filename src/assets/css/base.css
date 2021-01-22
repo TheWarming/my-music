@@ -1,7 +1,7 @@
 @import "./normalize.css";
 
 :root {
-  --boredr-color: #ddd;
+  --border-color: #ddd;
   --color-text: #666;
   --color-high-text: #D43C33;
   --color-tint: #D33A31;

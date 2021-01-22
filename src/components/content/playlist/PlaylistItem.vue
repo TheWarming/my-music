@@ -1,7 +1,7 @@
 <template>
   <div class="playlist-item">
     <div class="image-div">
-      <img :src="list.picUrl" alt="" />
+      <img :src="list.picUrl" alt="" @load="imageLoad" />
       <span>{{ showPlayCount }}</span>
     </div>
     <p>{{ list.name }}</p>
@@ -23,6 +23,11 @@ export default {
     showPlayCount() {
       if (this.list.playCount < 10000) return this.list.playCount;
       return (this.list.playCount / 10000).toFixed(1) + "万";
+    },
+  },
+  methods: {
+    imageLoad() {
+      this.$emit("imageLoad");
     },
   },
 };

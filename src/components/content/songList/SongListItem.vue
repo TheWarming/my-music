@@ -57,7 +57,7 @@ export default {
 .song-list-item {
   display: flex;
   margin: 0 5px;
-  border-bottom: 1px solid var(--boredr-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 10px 0;
 }
 .song {

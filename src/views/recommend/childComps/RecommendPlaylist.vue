@@ -6,6 +6,7 @@
         v-for="item in playlist"
         :key="item.id"
         :list="item"
+        v-bind="$attrs"
       ></playlist-item>
     </playlist>
   </div>
@@ -23,6 +24,7 @@ export default {
     Playlist,
     PlaylistItem,
   },
+
   props: {
     playlist: {
       type: Array,

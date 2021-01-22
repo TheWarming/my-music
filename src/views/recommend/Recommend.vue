@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <recommend-playlist :playlist="recommendPlaylist"></recommend-playlist>
+  <scroll ref="scroll" class="wrapper">
+    <recommend-playlist
+      :playlist="recommendPlaylist"
+      @imageLoad="imageLoad"
+    ></recommend-playlist>
     <recommend-new-song :newSongList="newSongList"></recommend-new-song>
-  </div>
+  </scroll>
 </template>
 
 <script>
 import RecommendPlaylist from "./childComps/RecommendPlaylist";
 import RecommendNewSong from "./childComps/RecommendNewSong";
+import Scroll from "components/common/scroll/Scroll";
 
 import { getRecommendPlaylistData, getNewSongData } from "network/recommend";
 
@@ -16,6 +20,7 @@ export default {
   components: {
     RecommendPlaylist,
     RecommendNewSong,
+    Scroll,
   },
   data() {
     return {
@@ -31,8 +36,16 @@ export default {
       this.newSongList = res.result;
     });
   },
+  methods: {
+    imageLoad() {
+      this.$refs.scroll.debounceRefresh();
+    },
+  },
 };
 </script>
 
 <style scoped>
+.wrapper {
+  height: calc(100% - 80px - 44px);
+}
 </style>

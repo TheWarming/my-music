@@ -2,7 +2,7 @@
   <div>
     <song-list>
       <song-list-item
-        v-for="item in hotList.splice(0, 20)"
+        v-for="item in hotList"
         :key="item"
         :song="item"
       ></song-list-item>
@@ -28,7 +28,13 @@ export default {
       },
     },
   },
-  computed: {},
+  watch: {
+    hotList() {
+      this.$nextTick(() => {
+        this.$emit("listLoad");
+      });
+    },
+  },
 };
 </script>
 
