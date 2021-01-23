@@ -2,9 +2,10 @@
   <div>
     <song-list>
       <song-list-item
-        v-for="item in hotList"
-        :key="item"
+        v-for="(item, index) in hotList"
+        :key="index"
         :song="item"
+        :rank="index + 1"
       ></song-list-item>
     </song-list>
   </div>

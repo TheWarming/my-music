@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const Recommend = () => import('views/recommend/Recommend');
 const Hot = () => import('views/hot/Hot');
 const Search = () => import('views/search/Search');
+const Play = () => import('views/play/Play');
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path:'/search',
     component:Search
+  },
+  {
+    path:'/Play',
+    component:Play
   }
 ]
 

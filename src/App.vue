@@ -2,7 +2,11 @@
   <div id="app">
     <my-header></my-header>
     <tab-bar-main></tab-bar-main>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive :exclude="['Play']">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 

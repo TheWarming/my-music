@@ -1,6 +1,6 @@
 <template>
   <div class="search-box">
-    <span>搜</span>
+    <span></span>
     <input
       type="search"
       class="my-search"
@@ -28,8 +28,8 @@ export default {
 
 <style scoped>
 .search-box {
-  padding: 6px 26px;
-  background-color: #ddd;
+  padding: 6px 3px 6px 26px;
+  background-color: #eee;
   border-radius: 8%/100%;
   position: relative;
 }
@@ -40,10 +40,34 @@ export default {
   width: 100%;
 }
 .search-box span {
+  display: inline-block;
   position: absolute;
+  width: 13px;
+  height: 13px;
   left: 2%;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 5px;
+  background-image: url(~assets/img/search/search.svg);
+  background-repeat: no-repeat;
+}
+input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: url("~assets/img/search/cross.svg") no-repeat center;
+  background-size: 100% 100%;
+  color: rgba(0, 0, 0, 0);
+}
+input[type="search"]::-ms-clear {
+  appearance: none;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: url("~assets/img/search/cross.svg") no-repeat center;
+  background-size: 100% 100%;
+  color: rgba(0, 0, 0, 0);
 }
 </style>

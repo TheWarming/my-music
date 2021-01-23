@@ -1,14 +1,24 @@
 <template>
   <div class="song-list-item" v-if="Object.keys(song).length !== 0">
+    <div class="rank" v-if="!isNaN(rank)">
+      <span class="center" :class="{ top: rank <= 3 }">
+        {{ rankIndex }}
+      </span>
+    </div>
     <div class="song">
       <p class="my-text-overflow">
         <span class="name">{{ name }}</span>
         <span>{{ alias }}</span>
       </p>
-      <p class="artists my-text-overflow">{{ artists }}</p>
+      <p
+        class="artists my-text-overflow"
+        :class="{ sq: song.exclusive || song.copyright === 1 }"
+      >
+        {{ artists }}
+      </p>
     </div>
-    <div class="play">
-      <span>播放</span>
+    <div class="play" @click="toPlay">
+      <span class="center"></span>
     </div>
   </div>
 </template>
@@ -22,6 +32,10 @@ export default {
       default() {
         return {};
       },
+    },
+    rank: {
+      type: Number,
+      default: NaN,
     },
   },
   computed: {
@@ -49,6 +63,20 @@ export default {
         ? ["al", "alia", "ar"]
         : ["album", "alias", "artists"];
     },
+    rankIndex() {
+      return this.rank <= 9 ? "0" + this.rank : this.rank;
+    },
+  },
+  methods: {
+    toPlay() {
+      this.$router.push({
+        path: "/play",
+        query: {
+          id: this.song[this.keys[0]].id,
+          urlId: this.song.al ? this.song.id : this.song.privilege.id,
+        },
+      });
+    },
   },
 };
 </script>
@@ -65,7 +93,14 @@ export default {
   min-width: 0;
 }
 .play {
-  width: 50px;
+  width: 22px;
+}
+.play span {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background: url(~assets/img/common/icon.png) -24px 0 no-repeat;
+  background-size: 166px 97px;
 }
 .name {
   color: #000;
@@ -73,5 +108,20 @@ export default {
 .artists {
   font-size: 12px;
   margin-top: 2px;
+}
+.rank {
+  width: 30px;
+}
+.top {
+  color: var(--color-high-text);
+}
+.sq::before {
+  display: inline-block;
+  background: url(~assets/img/common/icon.png) no-repeat;
+  content: "";
+  width: 12px;
+  height: 8px;
+  background-size: 166px 97px;
+  margin-right: 2px;
 }
 </style>

@@ -38,7 +38,7 @@ export default {
         return 0;
       } else if (this.$route.path.includes("/hot")) {
         return 1;
-      } else {
+      } else if (this.$route.path.includes("/search")) {
         return 2;
       }
     },

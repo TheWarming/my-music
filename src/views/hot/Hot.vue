@@ -29,6 +29,7 @@ export default {
     getHotSongData(3778678).then((res) => {
       this.hotList = res.playlist.tracks.splice(0, 20);
       this.updateTime = res.playlist.updateTime;
+      console.log(this.hotList);
     });
   },
   methods: {

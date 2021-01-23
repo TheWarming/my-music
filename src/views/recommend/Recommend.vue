@@ -34,6 +34,7 @@ export default {
     });
     getNewSongData(10).then((res) => {
       this.newSongList = res.result;
+      console.log(res);
     });
   },
   methods: {

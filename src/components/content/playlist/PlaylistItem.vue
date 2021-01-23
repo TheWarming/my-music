@@ -48,6 +48,11 @@ export default {
   z-index: 9;
   color: #fff;
   font-size: 10px;
+  background-image: url(~assets/img/common/earphone.svg);
+  background-repeat: no-repeat;
+  padding-left: 12px;
+  background-size: 10px 10px;
+  background-position: 0 2px;
 }
 .image-div::after {
   content: " ";
@@ -73,7 +78,7 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  font-size: 15px;
-  padding: 2px;
+  font-size: 16px;
+  margin: 2px;
 }
 </style>
