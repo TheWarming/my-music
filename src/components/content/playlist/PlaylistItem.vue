@@ -1,10 +1,13 @@
 <template>
   <div class="playlist-item">
     <div class="image-div">
-      <img :src="list.picUrl" alt="" @load="imageLoad" />
+      <img :src="listImg" alt="" @load="imageLoad" />
       <span>{{ showPlayCount }}</span>
     </div>
-    <p>{{ list.name }}</p>
+    <p :style="{ webkitLineClamp: option.line }">{{ list.name }}</p>
+    <p v-if="option.showCreator" class="creator">
+      {{ "by" + list.creator.nickname }}
+    </p>
   </div>
 </template>
 
@@ -18,11 +21,23 @@ export default {
         return {};
       },
     },
+    option: {
+      type: Object,
+      default() {
+        return {
+          line: 2,
+          showCreator: false,
+        };
+      },
+    },
   },
   computed: {
     showPlayCount() {
       if (this.list.playCount < 10000) return this.list.playCount;
       return (this.list.playCount / 10000).toFixed(1) + "万";
+    },
+    listImg() {
+      return this.list.picUrl || this.list.coverImgUrl;
     },
   },
   methods: {
@@ -76,9 +91,11 @@ export default {
 .playlist-item p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   overflow: hidden;
-  font-size: 16px;
+  font-size: 13px;
   margin: 2px;
+}
+.creator {
+  font-size: 12px;
 }
 </style>

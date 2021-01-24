@@ -1,5 +1,6 @@
 import request from "./request";
 
+//歌曲url
 export function getSongUrl(id) {
   return request({
     url: '/song/url',
@@ -9,11 +10,44 @@ export function getSongUrl(id) {
   })
 }
 
+//歌曲信息  urlid
 export function getSongDetail(id) {
   return request({
     url: '/album',
     params:{
       id
+    }
+  })
+}
+
+
+//歌曲相关歌单 urlid
+export function getSimiPlaylist(id) {
+  return request({
+    url: '/simi/playlist',
+    params:{
+      id
+    }
+  })
+}
+
+//相关歌曲 urlid
+export function getSimiSong(id) {
+  return request({
+    url: '/simi/song',
+    params:{
+      id
+    }
+  })
+}
+
+//热门评论
+export function getHotComment(id) {
+  return request({
+    url: '/comment/hot',
+    params:{
+      id,
+      type:0
     }
   })
 }

@@ -1,23 +1,27 @@
 <template>
-  <div class="song-list-item" v-if="Object.keys(song).length !== 0">
+  <div
+    class="song-list-item"
+    v-if="Object.keys(song).length !== 0"
+    @click="toPlay"
+  >
     <div class="rank" v-if="!isNaN(rank)">
       <span class="center" :class="{ top: rank <= 3 }">
         {{ rankIndex }}
       </span>
+    </div>
+    <div class="pic" v-if="picIsShow">
+      <img :src="picUrl" alt="pic" class="center" />
     </div>
     <div class="song">
       <p class="my-text-overflow">
         <span class="name">{{ name }}</span>
         <span>{{ alias }}</span>
       </p>
-      <p
-        class="artists my-text-overflow"
-        :class="{ sq: song.exclusive || song.copyright === 1 }"
-      >
+      <p class="artists my-text-overflow" :class="{ sq: song.exclusive }">
         {{ artists }}
       </p>
     </div>
-    <div class="play" @click="toPlay">
+    <div class="play">
       <span class="center"></span>
     </div>
   </div>
@@ -36,6 +40,10 @@ export default {
     rank: {
       type: Number,
       default: NaN,
+    },
+    picIsShow: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -66,15 +74,19 @@ export default {
     rankIndex() {
       return this.rank <= 9 ? "0" + this.rank : this.rank;
     },
+    picUrl() {
+      return this.song.album.picUrl || this.song.al.picUrl;
+    },
   },
   methods: {
     toPlay() {
+      const query = {
+        id: this.song[this.keys[0]].id,
+        urlId: this.song.al ? this.song.id : this.song.privilege.id,
+      };
       this.$router.push({
         path: "/play",
-        query: {
-          id: this.song[this.keys[0]].id,
-          urlId: this.song.al ? this.song.id : this.song.privilege.id,
-        },
+        query,
       });
     },
   },
@@ -123,5 +135,12 @@ export default {
   height: 8px;
   background-size: 166px 97px;
   margin-right: 2px;
+}
+.pic img {
+  width: 34px;
+  height: 34px;
+}
+.pic {
+  padding: 0 6px;
 }
 </style>

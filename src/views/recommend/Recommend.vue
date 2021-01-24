@@ -31,10 +31,11 @@ export default {
   created() {
     getRecommendPlaylistData(6).then((res) => {
       this.recommendPlaylist = res.result;
+      /* console.log(res); */
     });
     getNewSongData(10).then((res) => {
       this.newSongList = res.result;
-      console.log(res);
+      /* console.log(res); */
     });
   },
   methods: {

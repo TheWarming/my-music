@@ -5,3 +5,14 @@ export function getSearchHotData() {
     url: '/search/hot',
   })
 }
+
+//搜索数据
+export function getSearchData(keywords) {
+  return request({
+    url: '/cloudsearch',
+    params:{
+      keywords,
+      limit:20
+    }
+  })
+}

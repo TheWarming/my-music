@@ -28,7 +28,6 @@
         :src="songUrl"
         ref="audio"
         controls
-        autoplay
         loop
         class="myaudio"
         @play="playSong"

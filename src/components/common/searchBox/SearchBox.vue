@@ -1,12 +1,15 @@
 <template>
   <div class="search-box">
-    <span></span>
+    <span @click="doSearch"></span>
     <input
-      type="search"
+      type="text"
       class="my-search"
       :placeholder="placeholder"
       v-model="value"
+      @keyup.enter="doSearch"
+      ref="searchInput"
     />
+    <i class="cross-i" @click="clear" v-show="value.length !== 0"></i>
   </div>
 </template>
 
@@ -18,9 +21,23 @@ export default {
       type: String,
       default: "test",
     },
-    value: {
-      type: [String, Number],
-      default: "",
+  },
+  data() {
+    return {
+      value: "",
+    };
+  },
+  methods: {
+    doSearch() {
+      this.$emit("doSearch", this.value);
+      this.$refs.searchInput.blur();
+    },
+    clear() {
+      this.value = "";
+      this.$emit("clearSearch", this.value);
+    },
+    setValue(data) {
+      this.value = data;
     },
   },
 };
@@ -28,7 +45,8 @@ export default {
 
 <style scoped>
 .search-box {
-  padding: 6px 3px 6px 26px;
+  width: 100%;
+  padding: 6px 26px;
   background-color: #eee;
   border-radius: 8%/100%;
   position: relative;
@@ -50,24 +68,17 @@ export default {
   background-image: url(~assets/img/search/search.svg);
   background-repeat: no-repeat;
 }
-input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  position: relative;
+.search-box .cross-i {
+  display: inline-block;
   height: 15px;
   width: 15px;
   border-radius: 50%;
+  position: absolute;
+  right: 6px;
   background: url("~assets/img/search/cross.svg") no-repeat center;
   background-size: 100% 100%;
   color: rgba(0, 0, 0, 0);
-}
-input[type="search"]::-ms-clear {
-  appearance: none;
-  position: relative;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background: url("~assets/img/search/cross.svg") no-repeat center;
-  background-size: 100% 100%;
-  color: rgba(0, 0, 0, 0);
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

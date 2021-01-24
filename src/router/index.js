@@ -8,7 +8,7 @@ const Play = () => import('views/play/Play');
 const routes = [
   {
     path:'',
-    redirect:'/recommend '
+    redirect:'/recommend'
   },
   {
     path:'/recommend',

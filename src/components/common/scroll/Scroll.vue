@@ -66,6 +66,7 @@ export default {
     },
     refresh() {
       this.bScroll && this.bScroll.refresh();
+      console.log(1);
     },
     /*     finishPullUp() {
       this.bScroll && this.bScroll.finishPullUp();
