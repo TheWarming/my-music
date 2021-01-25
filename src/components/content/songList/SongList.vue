@@ -1,5 +1,5 @@
 <template>
-  <div class="song-list">
+  <div class="song-list lastClearBorder">
     <slot></slot>
   </div>
 </template>

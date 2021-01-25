@@ -66,18 +66,21 @@ export default {
   },
   methods: {
     playSong() {
+      if (!this.songUrl) return;
       this.isStop = false;
     },
     pauseSong() {
+      if (!this.songUrl) return;
       this.isStop = true;
     },
     stateChange() {
+      if (!this.songUrl) return;
       this.isStop = !this.isStop;
       this.isStop ? this.$refs.audio.pause() : this.$refs.audio.play();
     },
     back() {
       this.$router.go(-1);
-      console.log(1);
+      /*       console.log(1); */
     },
   },
 };
@@ -132,7 +135,7 @@ export default {
   padding: 20px;
 }
 .artists {
-  color: #aaa;
+  color: #666;
 }
 .audio_con {
   text-align: center;

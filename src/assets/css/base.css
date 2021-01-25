@@ -81,3 +81,8 @@ a {
   overflow: hidden;
   word-break: break-all;
 }
+
+/* 最后一个子元素清除底部边框 */
+.lastClearBorder div:last-child {
+  border-bottom: none !important;
+}

@@ -36,7 +36,6 @@ export default {
 <style scoped>
 .comment-info {
   display: flex;
-  color: aliceblue;
   padding-top: 10px;
   padding-left: 10px;
 }
@@ -50,7 +49,6 @@ export default {
   flex: 1;
 }
 .content {
-  color: #fff;
   padding-right: 10px;
 }
 .comment-text {

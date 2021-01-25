@@ -37,6 +37,13 @@ export default {
     SongListItem,
     SongList,
   },
+  watch: {
+    songs() {
+      this.$nextTick(() => {
+        this.$emit("simiSongLoad");
+      });
+    },
+  },
 };
 </script>
 

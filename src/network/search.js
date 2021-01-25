@@ -7,12 +7,13 @@ export function getSearchHotData() {
 }
 
 //搜索数据
-export function getSearchData(keywords) {
+export function getSearchData(keywords,offset) {
   return request({
     url: '/cloudsearch',
     params:{
       keywords,
-      limit:20
+      offset,
+      limit:20,
     }
   })
 }

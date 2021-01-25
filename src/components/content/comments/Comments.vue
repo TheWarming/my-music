@@ -1,6 +1,8 @@
 <template>
-  <div class="comments">
-    <p class="comments-type">{{ commentsType }}</p>
+  <div class="comments lastClearBorder" :style="{ color: fontColor }">
+    <p class="comments-type" v-if="commentsType.length">
+      {{ commentsType }}
+    </p>
     <slot></slot>
   </div>
 </template>
@@ -12,6 +14,10 @@ export default {
     commentsType: {
       type: String,
       default: "评论",
+    },
+    fontColor: {
+      type: String,
+      default: "#FFFFFF",
     },
   },
 };

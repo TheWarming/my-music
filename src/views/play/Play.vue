@@ -1,14 +1,17 @@
 <template>
-  <div id="Play">
+  <div id="play">
     <div class="background" :style="backgroundImage"></div>
     <scroll class="wrapper" ref="scroll">
       <play-music :detail="songDetail" :songUrl="songUrl"></play-music>
       <play-simi-playlist
         :playlists="simiPlaylists"
-        @imageLoad="imageLoad"
+        @imageLoad="refresh"
       ></play-simi-playlist>
-      <play-simi-songs :songs="simiSongs"></play-simi-songs>
-      <comments :commentsType="'精选评论'">
+      <play-simi-songs
+        :songs="simiSongs"
+        @simiSongLoad="refresh"
+      ></play-simi-songs>
+      <comments :commentsType="'精选评论'" v-if="hotComments.length">
         <comments-item
           v-for="comment in hotComments"
           :comment="comment"
@@ -57,17 +60,15 @@ export default {
       simiPlaylists: [],
       simiSongs: [],
       hotComments: [],
-      imgIsLoad: false,
     };
   },
   methods: {
     init() {
       getSongUrl(this.urlId).then((res) => {
-        /*  console.log(res); */
+        /* onsole.log(res); */
         this.songUrl = res.data[0].url;
       });
       getSongDetail(this.id).then((res) => {
-        /*  console.log(res); */
         this.songDetail = new SongDetail(res.album);
       });
       getSimiPlaylist(this.urlId).then((res) => {
@@ -80,13 +81,10 @@ export default {
       });
       getHotComment(this.urlId).then((res) => {
         this.hotComments = res.hotComments.splice(0, 20);
-        console.log(this.hotComments);
       });
-      console.log(this.id);
     },
-    imageLoad() {
-      !this.imgIsLoad && this.$refs.scroll.refresh();
-      this.imgIsLoad = true;
+    refresh() {
+      this.$refs.scroll.debounceRefresh();
     },
   },
   computed: {
@@ -106,23 +104,18 @@ export default {
     },
     hotComments() {
       this.$nextTick(() => {
-        this.$refs.scroll.refresh();
+        this.refresh();
       });
     },
   },
   created() {
     this.init();
   },
-  /*   mounted() {
-    setTimeout(() => {
-      this.$refs.scroll.refresh();
-    }, 3000);
-  }, */
 };
 </script>
 
 <style scoped>
-#Play {
+#play {
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -141,6 +134,14 @@ export default {
   position: absolute;
   z-index: -1;
   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #161824;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  overflow: hidden;
 }
 .wrapper {
   height: 100%;

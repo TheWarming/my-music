@@ -15,8 +15,12 @@ import Scroll from "components/common/scroll/Scroll";
 
 import { getRecommendPlaylistData, getNewSongData } from "network/recommend";
 
+//自动刷新
+import { autoRefreshMixin } from "common/mixin";
+
 export default {
   name: "Recommend",
+  mixins: [autoRefreshMixin],
   components: {
     RecommendPlaylist,
     RecommendNewSong,

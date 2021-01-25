@@ -1,13 +1,23 @@
 <template>
   <div id="Header">
-    <span class="wy-title center">网易云音乐</span>
-    <span class="download right center">下载APP</span>
+    <span class="wy-title center">{{ title }}</span>
+    <span class="download right center">{{ message }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: "MyHeader",
+  props: {
+    title: {
+      type: String,
+      default: "网易云音乐",
+    },
+    message: {
+      type: String,
+      default: "下载APP",
+    },
+  },
 };
 </script>
 

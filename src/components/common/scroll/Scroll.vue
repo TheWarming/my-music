@@ -9,8 +9,8 @@
 <script>
 /**使用better-scroll */
 import BScroll from "@better-scroll/core";
-/* import Pullup from "@better-scroll/pull-up";
-BScroll.use(Pullup); */
+import Pullup from "@better-scroll/pull-up";
+BScroll.use(Pullup);
 
 //引入防抖
 import { debounce } from "common/utils";
@@ -55,22 +55,22 @@ export default {
           this.$emit("scroll", pos);
         });
       }
-      /*       if (this.isPullUpLoad) {
+      if (this.isPullUpLoad) {
         this.bScroll.on("pullingUp", () => {
           this.$emit("pullingUp");
         });
-      } */
+      }
     },
     scrollTo(x = 0, y = 0, time = 300) {
       this.bScroll && this.bScroll.scrollTo(x, y, time);
     },
     refresh() {
+      /* console.log("refresh"); */
       this.bScroll && this.bScroll.refresh();
-      console.log(1);
     },
-    /*     finishPullUp() {
+    finishPullUp() {
       this.bScroll && this.bScroll.finishPullUp();
-    }, */
+    },
     getScrollY() {
       return this.bScroll ? this.bScroll.y : 0;
     },

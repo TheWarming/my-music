@@ -13,7 +13,13 @@
       @changeSearch="changeSearch"
       v-show="!resultIsShow"
     ></search-hot-box>
-    <scroll ref="scroll" class="wrapper" v-show="resultIsShow">
+    <scroll
+      ref="scroll"
+      class="wrapper"
+      v-show="resultIsShow"
+      :isPullUpLoad="true"
+      @pullingUp="loadMore"
+    >
       <song-list v-if="searchResult">
         <song-list-item
           v-for="item in searchResult"
@@ -37,8 +43,12 @@ import SearchHotBox from "./childComps/SearchHotBox";
 
 import { getSearchHotData, getSearchData } from "network/search";
 
+//自动刷新
+import { autoRefreshMixin } from "common/mixin";
+
 export default {
   name: "Search",
+  mixins: [autoRefreshMixin],
   components: {
     SearchBox,
     SearchHotBox,
@@ -52,6 +62,8 @@ export default {
       placeholder: "搜索歌曲、歌手、专辑",
       searchResult: [],
       resultIsShow: false,
+      page: 0,
+      searchKey: "",
     };
   },
   created() {
@@ -66,17 +78,32 @@ export default {
       this.doSearch(data);
     },
     doSearch(value) {
-      getSearchData(value).then((res) => {
+      this.searchKey = value;
+      getSearchData(value, this.page).then((res) => {
+        this.page++;
         this.searchResult = res.result.songs;
         this.resultIsShow = true;
-        console.log(this.searchResult);
         this.$nextTick(() => {
           this.$refs.scroll.refresh();
         });
       });
     },
+    //清除搜索
     clearSearch() {
+      this.$refs.scroll.scrollTo();
       this.resultIsShow = false;
+      this.searchKey = "";
+      this.page = 0;
+    },
+    loadMore() {
+      getSearchData(this.searchKey, this.page).then((res) => {
+        this.page++;
+        this.searchResult.push(...res.result.songs);
+        this.$nextTick(() => {
+          this.$refs.scroll.refresh();
+          this.$refs.scroll.finishPullUp();
+        });
+      });
     },
   },
 };

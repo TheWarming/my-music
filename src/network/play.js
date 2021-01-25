@@ -1,6 +1,6 @@
 import request from "./request";
 
-//歌曲url
+//歌曲url urlid
 export function getSongUrl(id) {
   return request({
     url: '/song/url',
@@ -10,7 +10,7 @@ export function getSongUrl(id) {
   })
 }
 
-//歌曲信息  urlid
+//歌曲信息  
 export function getSongDetail(id) {
   return request({
     url: '/album',
@@ -41,7 +41,7 @@ export function getSimiSong(id) {
   })
 }
 
-//热门评论
+//热门评论 urlid
 export function getHotComment(id) {
   return request({
     url: '/comment/hot',

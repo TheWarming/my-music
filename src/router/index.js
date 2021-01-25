@@ -4,6 +4,7 @@ const Recommend = () => import('views/recommend/Recommend');
 const Hot = () => import('views/hot/Hot');
 const Search = () => import('views/search/Search');
 const Play = () => import('views/play/Play');
+const PlayList = () => import('views/playlist/Playlist')
 
 const routes = [
   {
@@ -23,8 +24,12 @@ const routes = [
     component:Search
   },
   {
-    path:'/Play',
+    path:'/play',
     component:Play
+  },
+  {
+    path:'/playlist',
+    component:PlayList
   }
 ]
 

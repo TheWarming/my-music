@@ -1,5 +1,5 @@
 <template>
-  <div class="playlist-item">
+  <div class="playlist-item" @click="toPlaylist">
     <div class="image-div">
       <img :src="listImg" alt="" @load="imageLoad" />
       <span>{{ showPlayCount }}</span>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "PlaylistItem",
+  name: "PlaylistsItem",
   props: {
     list: {
       type: Object,
@@ -43,6 +43,15 @@ export default {
   methods: {
     imageLoad() {
       this.$emit("imageLoad");
+    },
+    toPlaylist() {
+      const query = {
+        id: this.list.id,
+      };
+      this.$router.push({
+        path: "/playlist",
+        query,
+      });
     },
   },
 };

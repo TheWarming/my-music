@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <my-header></my-header>
+    <my-header title="山寨网易云音乐" message="By Warming"></my-header>
     <tab-bar-main></tab-bar-main>
     <router-view v-slot="{ Component }">
-      <keep-alive :exclude="['Play']">
+      <keep-alive :exclude="['Play', 'Playlist']">
         <component :is="Component" />
       </keep-alive>
     </router-view>

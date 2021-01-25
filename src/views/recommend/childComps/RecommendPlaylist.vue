@@ -1,28 +1,28 @@
 <template>
   <div class="recommend-playlist">
     <second-header :title="title"></second-header>
-    <playlist>
-      <playlist-item
+    <playlists>
+      <playlists-item
         v-for="item in playlist"
         :key="item.id"
         :list="item"
         v-bind="$attrs"
-      ></playlist-item>
-    </playlist>
+      ></playlists-item>
+    </playlists>
   </div>
 </template>
 
 <script>
 import SecondHeader from "components/content/secondHeader/SecondHeader";
-import Playlist from "components/content/playlist/Playlist";
-import PlaylistItem from "components/content/playlist/PlaylistItem";
+import Playlists from "components/content/playlists/Playlists";
+import PlaylistsItem from "components/content/playlists/PlaylistsItem";
 
 export default {
   name: "RecommendPlaylist",
   components: {
     SecondHeader,
-    Playlist,
-    PlaylistItem,
+    Playlists,
+    PlaylistsItem,
   },
 
   props: {
