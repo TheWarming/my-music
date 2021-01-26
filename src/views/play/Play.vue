@@ -2,7 +2,12 @@
   <div id="play">
     <div class="background" :style="backgroundImage"></div>
     <scroll class="wrapper" ref="scroll">
-      <play-music :detail="songDetail" :songUrl="songUrl"></play-music>
+      <play-music
+        :detail="songDetail"
+        :songUrl="songUrl"
+        @slide="slide"
+        ref="palyMusic"
+      ></play-music>
       <play-simi-playlist
         :playlists="simiPlaylists"
         @imageLoad="refresh"
@@ -60,15 +65,17 @@ export default {
       simiPlaylists: [],
       simiSongs: [],
       hotComments: [],
+      slideY: 0,
     };
   },
   methods: {
     init() {
       getSongUrl(this.urlId).then((res) => {
-        /* onsole.log(res); */
+        /* console.log(res); */
         this.songUrl = res.data[0].url;
       });
       getSongDetail(this.id).then((res) => {
+        /* console.log(res); */
         this.songDetail = new SongDetail(res.album);
       });
       getSimiPlaylist(this.urlId).then((res) => {
@@ -84,7 +91,15 @@ export default {
       });
     },
     refresh() {
-      this.$refs.scroll.debounceRefresh();
+      this.$refs.scroll && this.$refs.scroll.debounceRefresh();
+    },
+
+    //点击滑动
+    slide() {
+      if (!this.slideY) {
+        this.slideY = this.$refs.palyMusic.$el.offsetHeight;
+      }
+      this.$refs.scroll.scrollTo(0, -this.slideY);
     },
   },
   computed: {

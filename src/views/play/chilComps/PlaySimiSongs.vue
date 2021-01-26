@@ -1,7 +1,7 @@
 <template>
   <div>
-    <second-header :title="title"></second-header>
-    <song-list>
+    <second-header :title="title" fontColor="#FFFFFF"></second-header>
+    <song-list nameColor="#FFFFFF">
       <song-list-item
         v-for="item in songs"
         :key="item.id"

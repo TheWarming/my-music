@@ -1,6 +1,6 @@
 <template>
   <div class="playlist" v-if="playlists.length !== 0">
-    <second-header :title="title"></second-header>
+    <second-header :title="title" fontColor="#FFFFFF"></second-header>
     <playlists>
       <playlists-item
         v-for="item in playlists"

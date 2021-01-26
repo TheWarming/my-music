@@ -34,7 +34,9 @@ export default {
   computed: {
     showPlayCount() {
       if (this.list.playCount < 10000) return this.list.playCount;
-      return (this.list.playCount / 10000).toFixed(1) + "万";
+      if (this.list.playCount < 10000000)
+        return (this.list.playCount / 10000).toFixed(1) + "万";
+      return (this.list.playCount / 10000 / 10000).toFixed(1) + "亿";
     },
     listImg() {
       return this.list.picUrl || this.list.coverImgUrl;

@@ -19,7 +19,7 @@
         v-show="isStop"
       />
     </div>
-    <div class="info">
+    <div class="info" :style="{ opacity: isEmpty ? 0 : 1 }">
       <span>{{ detail.name + "-" }} </span>
       <span class="artists">{{ detail.artists }}</span>
     </div>
@@ -33,6 +33,9 @@
         @play="playSong"
         @pause="pauseSong"
       ></audio>
+    </div>
+    <div class="arr">
+      <i @click="slide"></i>
     </div>
   </div>
 </template>
@@ -61,7 +64,10 @@ export default {
   },
   computed: {
     picUrlStyle() {
-      return { backgroundImage: "url(" + this.detail.picUrl + ")" };
+      return { backgroundImage: "url(" + this.detail.blurPicUrl + ")" };
+    },
+    isEmpty() {
+      return Object.keys(this.detail).length === 0;
     },
   },
   methods: {
@@ -81,6 +87,9 @@ export default {
     back() {
       this.$router.go(-1);
       /*       console.log(1); */
+    },
+    slide() {
+      this.$emit("slide");
     },
   },
 };
@@ -168,5 +177,50 @@ export default {
   transform: translateX(-50%);
   width: 56px;
   height: 56px;
+}
+.arr {
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  justify-content: center;
+  z-index: 9;
+}
+.arr i {
+  display: block;
+  width: 17px;
+  height: 12px;
+  background-repeat: no-repeat;
+  background-size: 17px auto;
+  background-position: 0 0;
+  background-image: url(~assets/img/playSong/arr.png);
+  animation: shining 1.2s steps(1) infinite;
+}
+@keyframes shining {
+  0% {
+    background-position: 0 0;
+  }
+  15% {
+    background-position: 0 -12px;
+  }
+  30% {
+    background-position: 0 -24px;
+  }
+  45% {
+    background-position: 0 -36px;
+  }
+  60% {
+    background-position: 0 -48px;
+  }
+  75% {
+    background-position: 0 -60px;
+  }
+  90% {
+    background-position: 0 -72px;
+  }
+  100% {
+    background-position: 0 -84px;
+  }
 }
 </style>

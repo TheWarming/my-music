@@ -11,11 +11,20 @@
     <search-hot-box
       :hots="searchHots"
       @changeSearch="changeSearch"
-      v-show="!resultIsShow"
     ></search-hot-box>
+    <scroll class="history-wrapper" ref="historyScroll">
+      <search-history-item
+        v-for="(item, index) in searchHistory"
+        :key="index"
+        :message="item"
+        :index="index"
+        @click.native="changeSearch(item)"
+        @deleteHistoryItem="deleteHistoryItem"
+      ></search-history-item>
+    </scroll>
     <scroll
       ref="scroll"
-      class="wrapper"
+      class="search-wrapper"
       v-show="resultIsShow"
       :isPullUpLoad="true"
       @pullingUp="loadMore"
@@ -40,6 +49,7 @@ import SongList from "components/content/songList/SongList";
 import SongListItem from "components/content/songList/SongListItem";
 
 import SearchHotBox from "./childComps/SearchHotBox";
+import SearchHistoryItem from "./childComps/SearchHistoryItem";
 
 import { getSearchHotData, getSearchData } from "network/search";
 
@@ -55,6 +65,7 @@ export default {
     SongList,
     SongListItem,
     Scroll,
+    SearchHistoryItem,
   },
   data() {
     return {
@@ -64,9 +75,14 @@ export default {
       resultIsShow: false,
       page: 0,
       searchKey: "",
+      searchHistory: null,
     };
   },
   created() {
+    this.searchHistory = localStorage.getItem("my-music-search-history")
+      ? JSON.parse(localStorage.getItem("my-music-search-history"))
+      : [];
+
     getSearchHotData().then((res) => {
       this.searchHots = res.result.hots;
       /* console.log(res); */
@@ -78,6 +94,8 @@ export default {
       this.doSearch(data);
     },
     doSearch(value) {
+      /* this.searchHistory.unshift(value); */
+      this.searchHistoryUnshift(value);
       this.searchKey = value;
       getSearchData(value, this.page).then((res) => {
         this.page++;
@@ -94,6 +112,9 @@ export default {
       this.resultIsShow = false;
       this.searchKey = "";
       this.page = 0;
+
+      //历史记录显示
+      this.$refs.historyScroll.refresh();
     },
     loadMore() {
       getSearchData(this.searchKey, this.page).then((res) => {
@@ -104,6 +125,25 @@ export default {
           this.$refs.scroll.finishPullUp();
         });
       });
+    },
+    savaSearchHistory() {
+      localStorage.setItem(
+        "my-music-search-history",
+        JSON.stringify(this.searchHistory)
+      );
+    },
+    deleteHistoryItem(index) {
+      this.searchHistory.splice(index, 1);
+      this.savaSearchHistory();
+      this.$nextTick(() => {
+        this.$refs.historyScroll.refresh();
+      });
+    },
+    searchHistoryUnshift(value) {
+      const i = this.searchHistory.findIndex((n) => n === value);
+      i !== -1 && this.searchHistory.splice(i, 1);
+      this.searchHistory.unshift(value);
+      this.savaSearchHistory();
     },
   },
 };
@@ -120,14 +160,25 @@ export default {
 }
 #searchView {
   height: calc(100% - 80px - 44px);
+  position: relative;
 }
-.wrapper {
+.search-wrapper {
+  background-color: #ffffff;
   height: calc(100% - 66px);
+  position: absolute;
+  top: 66px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
 }
 .no-result {
   font-size: 20px;
   line-height: 20px;
   text-align: center;
   margin-top: 20px;
+}
+.history-wrapper {
+  height: calc(100% - 80px - 44px - 100px);
 }
 </style>

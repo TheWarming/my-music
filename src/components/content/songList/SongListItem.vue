@@ -114,12 +114,10 @@ export default {
   background: url(~assets/img/common/icon.png) -24px 0 no-repeat;
   background-size: 166px 97px;
 }
-.name {
-  color: #000;
-}
 .artists {
   font-size: 12px;
   margin-top: 2px;
+  color: #666;
 }
 .rank {
   width: 30px;

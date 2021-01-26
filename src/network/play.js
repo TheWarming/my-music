@@ -58,5 +58,6 @@ export class SongDetail{
     this.picUrl = album.picUrl
     this.name = album.name
     this.artists = album.artists.reduce((pre, item) => pre + item.name + "/", "").slice(0, -1)
+    this.blurPicUrl = album.blurPicUrl
   }
 }

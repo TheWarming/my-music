@@ -79,20 +79,25 @@ export default {
       this.newComments = res.comments;
     });
   },
+  methods: {
+    refresh() {
+      this.$refs.scroll && this.$refs.scroll.debounceRefresh();
+    },
+  },
   watch: {
     songs() {
       this.$nextTick(() => {
-        this.$refs.scroll.debounceRefresh();
+        this.refresh();
       });
     },
     hotComments() {
       this.$nextTick(() => {
-        this.$refs.scroll.debounceRefresh();
+        this.refresh();
       });
     },
     newComments() {
       this.$nextTick(() => {
-        this.$refs.scroll.debounceRefresh();
+        this.refresh();
       });
     },
   },
