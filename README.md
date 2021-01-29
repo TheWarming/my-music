@@ -25,31 +25,36 @@ npm run serve
 ## 图例
 
 ### 推荐页
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/recommend.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/recommend.png)  
+
 基本上与原官方页面抱持一致，展示最新的音乐与推荐歌单,点击分别可以进入播放页和歌单页面
 上方的 推荐、热歌榜、搜索  是通过vue-router进行页面切换。
 
 ### 播放页
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play1.png)
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play2.png)
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play3.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play3.png)  
+
 播放页面上实现了音乐播放时，cd封面图会旋转，音乐停止时则会停止.（歌词功能暂未实现
 点击下方的箭头会直接滑动到下方的相关推荐的信息栏
 
 ### 搜索
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/search1.png)
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/search2.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/search2.png)  
+
 在输入框内填入信息后，可以点击左侧的放大镜进行搜索。也可以直接点击下方的热门关键词进行搜索。
 可以通过下滑更新获得更多的搜索结果
 除了基本搜索功能，还有本地历史搜索信息功能，通过localStorage存储
 
 ### 热歌榜
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/hot.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/hot.png)  
+
 展示热歌榜信息，并且增加了向下滑动获得更多的热门歌曲
 
 ### 歌单页
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/playlist1.png)
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/playlist2.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/playlist2.png)  
+
 展示歌单的信息
 
 
