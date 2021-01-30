@@ -23,17 +23,27 @@
       <span>{{ detail.name + "-" }} </span>
       <span class="artists">{{ detail.artists }}</span>
     </div>
-    <div class="audio_con">
-      <audio
-        :src="songUrl"
-        ref="audio"
-        controls
-        loop
-        class="myaudio"
-        @play="playSong"
-        @pause="pauseSong"
-      ></audio>
-    </div>
+    <audio
+      :src="songUrl"
+      ref="audio"
+      controls
+      loop
+      class="my-audio"
+      @play="playSong"
+      @pause="pauseSong"
+      @seeked="seeked"
+    ></audio>
+    <scroll class="lyc-wrapper" ref="lycWrapper">
+      <ul v-if="lyc !== null">
+        <li
+          v-for="(item, column) in lyc.lines"
+          :key="column"
+          :class="{ 'lyc-actived': column === currentColumn }"
+        >
+          {{ item.txt }}
+        </li>
+      </ul>
+    </scroll>
     <div class="arr">
       <i @click="slide"></i>
     </div>
@@ -41,6 +51,12 @@
 </template>
 
 <script>
+//歌词解析
+import Lyric from "lyric-parser";
+
+//歌词滑动
+import Scroll from "components/common/scroll/Scroll";
+
 export default {
   name: "playMusic",
   props: {
@@ -56,11 +72,47 @@ export default {
       type: String,
       default: "",
     },
+    lyric: {
+      type: String,
+      default: "",
+    },
+  },
+  components: {
+    Scroll,
   },
   data() {
     return {
       isStop: true,
+      lyc: null,
+      currentColumn: 0,
+      flag: false,
     };
+  },
+  watch: {
+    lyric() {
+      if (this.lyc) {
+        this.lyc.stop();
+        this.currentColumn = 0;
+        this.$refs.lycWrapper.scrollTo();
+      }
+      this.lyc = new Lyric(this.lyric, this.lycHandler);
+      this.$nextTick(() => {
+        this.$refs.lycWrapper.refresh();
+      });
+    },
+    songUrl() {
+      if (!this.isStop) {
+        this.isStop = true;
+        this.flag = true;
+      }
+    },
+    isStop() {
+      if (this.flag) {
+        this.flag = false;
+        return;
+      }
+      this.lyc.togglePlay();
+    },
   },
   computed: {
     picUrlStyle() {
@@ -90,6 +142,18 @@ export default {
     },
     slide() {
       this.$emit("slide");
+    },
+    lycHandler({ lineNum }) {
+      if (!this.$refs.lycWrapper) return;
+      this.currentColumn = lineNum;
+      if (lineNum >= 3 && lineNum <= this.lyc.lines.length - 4) {
+        // 结合better-scroll，滚动歌词
+        this.$refs.lycWrapper.scrollTo(0, -20 * (lineNum - 2), 600);
+      }
+    },
+    seeked(time) {
+      this.lyc.seek(this.$refs.audio.currentTime * 1000);
+      /* console.log(this.$refs.audio.currentTime); */
     },
   },
 };
@@ -197,6 +261,12 @@ export default {
   background-image: url(~assets/img/playSong/arr.png);
   animation: shining 1.2s steps(1) infinite;
 }
+.my-audio {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 @keyframes shining {
   0% {
     background-position: 0 0;
@@ -222,5 +292,18 @@ export default {
   100% {
     background-position: 0 -84px;
   }
+}
+.lyc-wrapper {
+  height: 100px;
+  text-align: center;
+}
+.lyc-actived {
+  color: white;
+}
+.lyc-wrapper li {
+  height: 20px;
+  padding: 2px;
+  font-size: 16px;
+  line-height: 16px;
 }
 </style>

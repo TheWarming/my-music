@@ -52,6 +52,16 @@ export function getHotComment(id) {
   })
 }
 
+//获取歌词
+export function getLyric(id) {
+  return request({
+    url: '/lyric',
+    params:{
+      id,
+    }
+  })
+}
+
 export class SongDetail{
   constructor(album){
     this.id = album.id

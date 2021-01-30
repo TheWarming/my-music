@@ -5,6 +5,7 @@
       <play-music
         :detail="songDetail"
         :songUrl="songUrl"
+        :lyric="lyric"
         @slide="slide"
         ref="palyMusic"
       ></play-music>
@@ -35,6 +36,7 @@ import {
   getSimiPlaylist,
   getSimiSong,
   getHotComment,
+  getLyric,
 } from "network/play";
 
 import Scroll from "components/common/scroll/Scroll";
@@ -66,6 +68,7 @@ export default {
       simiSongs: [],
       hotComments: [],
       slideY: 0,
+      lyric: "",
     };
   },
   methods: {
@@ -88,6 +91,9 @@ export default {
       });
       getHotComment(this.urlId).then((res) => {
         this.hotComments = res.hotComments.splice(0, 20);
+      });
+      getLyric(this.urlId).then((res) => {
+        this.lyric = res.lrc.lyric;
       });
     },
     refresh() {
