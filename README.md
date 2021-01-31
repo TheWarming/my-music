@@ -31,11 +31,11 @@ npm run serve
 上方的 推荐、热歌榜、搜索  是通过vue-router进行页面切换。
 
 ### 播放页
-![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play1.png)
+![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play4.png)
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play2.png)
 ![Image](https://github.com/TheWarming/my-music/blob/main/src/assets/img/example/play3.png)  
 
-播放页面上实现了音乐播放时，cd封面图会旋转，音乐停止时则会停止.（歌词功能暂未实现
+播放页面上实现了音乐播放时，cd封面图会旋转，音乐停止时则会停止，并有歌词滑动效(lyric-parser + better-scroll来实现)
 点击下方的箭头会直接滑动到下方的相关推荐的信息栏
 
 ### 搜索

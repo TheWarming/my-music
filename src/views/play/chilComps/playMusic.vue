@@ -109,9 +109,11 @@ export default {
     isStop() {
       if (this.flag) {
         this.flag = false;
+        console.log("reset");
         return;
       }
       this.lyc.togglePlay();
+      console.log("change", this.lyc);
     },
   },
   computed: {
@@ -124,17 +126,18 @@ export default {
   },
   methods: {
     playSong() {
-      if (!this.songUrl) return;
+      if (!this.songUrl || this.isStop === false) return;
+      console.log("play");
       this.isStop = false;
     },
     pauseSong() {
-      if (!this.songUrl) return;
+      if (!this.songUrl || this.isStop === true) return;
+      console.log("stop");
       this.isStop = true;
     },
     stateChange() {
       if (!this.songUrl) return;
-      this.isStop = !this.isStop;
-      this.isStop ? this.$refs.audio.pause() : this.$refs.audio.play();
+      !this.isStop ? this.$refs.audio.pause() : this.$refs.audio.play();
     },
     back() {
       this.$router.go(-1);
@@ -153,6 +156,8 @@ export default {
     },
     seeked(time) {
       this.lyc.seek(this.$refs.audio.currentTime * 1000);
+      if (this.isStop) this.lyc.togglePlay();
+      /* if (!this.isStop) this.lyc.play(); */
       /* console.log(this.$refs.audio.currentTime); */
     },
   },
