@@ -3,7 +3,8 @@ import Axios from 'axios'
 export default function axios(option){
   //创建实例与基本配置
   const instance = Axios.create({
-    baseURL:'http://localhost:3000/',
+    /* baseURL:'http://localhost:3000/', */
+    baseURL:'https://autumnfish.cn/',
     timeout:5000
   });
   //请求和响应拦截

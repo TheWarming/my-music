@@ -10,5 +10,6 @@ module.exports = {
       }
     }
   },
+  publicPath: '/my-music/',
   outputDir:'docs'
 }
