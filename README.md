@@ -1,5 +1,5 @@
 ## my-usic
-### 在线预览地址 [点我预览](https://thewarming.github.io/my-music/)
+### 在线预览地址 ([点我预览](https://thewarming.github.io/my-music/))
 
 ## 项目介绍
 
