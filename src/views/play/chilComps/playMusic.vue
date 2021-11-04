@@ -1,6 +1,6 @@
 <template>
   <div class="playMusic">
-    <span class="logo" @click="back">网易云音乐</span>
+    <span class="logo" @click="back">山寨云音乐</span>
     <img src="~assets/img/playSong/needle.png" alt="needle" class="needle" />
     <div class="musicPic">
       <div
@@ -113,7 +113,7 @@ export default {
         return;
       }
       this.lyc.togglePlay();
-      console.log("change", this.lyc);
+      //console.log("change", this.lyc);
     },
   },
   computed: {
@@ -127,12 +127,12 @@ export default {
   methods: {
     playSong() {
       if (!this.songUrl || this.isStop === false) return;
-      console.log("play");
+      //console.log("play");
       this.isStop = false;
     },
     pauseSong() {
       if (!this.songUrl || this.isStop === true) return;
-      console.log("stop");
+      //console.log("stop");
       this.isStop = true;
     },
     stateChange() {

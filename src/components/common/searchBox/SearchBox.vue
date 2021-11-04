@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     doSearch() {
+      if (!this.value) return;
       this.$emit("doSearch", this.value);
       this.$refs.searchInput.blur();
     },
@@ -38,6 +39,11 @@ export default {
     },
     setValue(data) {
       this.value = data;
+    },
+  },
+  watch: {
+    value(newV) {
+      if (!newV) this.clear();
     },
   },
 };
